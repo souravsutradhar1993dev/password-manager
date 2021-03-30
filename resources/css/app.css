@@ -1,0 +1,75 @@
+.IconPicker {
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.IconPicker .Icon {
+    padding: 7px;
+    margin: 3px;
+    cursor: pointer;
+    color: #343A40;
+}
+
+.Icon.Active {
+    background-color: #343A40;
+    color: #fff;
+}
+#create-main-category-modal .modal-content {
+    max-height:500px;
+    overflow-y: auto;
+}
+#addUser {
+    cursor: pointer;
+}
+#selectedCatUser .card-body-top {
+    display: inline-flex;
+}
+#selectedCatUser .image img {
+    width: 34px;
+}
+#selectedCatUser .card-title {
+    margin-left: 6px;
+}
+#deleteUser {
+    cursor: pointer;
+}
+.input-group-action {
+    cursor: pointer;
+}
+.breadCumbHeaderSection {
+    display: inline-flex;
+}
+.breadCumbHeaderSection .actionBtn {
+    margin-left: 15px;
+    padding-top: 4px;
+}
+.breadCumbHeaderSection .actionBtn .deleteCat {
+    cursor: pointer;
+    margin-left: 15px;
+}
+.breadCumbHeaderSection .actionBtn .editCat {
+    cursor: pointer;
+}
+.info-box {
+    cursor: pointer;
+}
+.nav-item {
+    cursor: pointer;
+}
+.editUser {
+    cursor: pointer;
+}
+.deleteUser {
+    margin-left: 15px;
+    cursor: pointer;
+}
+.header-password-trash {
+    margin-left: 30px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.header-password-edit {
+    margin-left: 30px;
+    margin-top: 10px;
+    cursor: pointer;
+}
