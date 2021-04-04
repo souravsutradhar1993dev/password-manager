@@ -35,7 +35,7 @@ function Dashboard(props) {
     }, [])
     return (
         <div className="content-wrapper">
-            <Breadcumb getcat={props.getcat} title="Recently opened" id="" addButton="password" />
+            <Breadcumb getcat={props.getcat} title="Recently opened" id="" addButton="password" pageType="dashboard" />
             <section className="content">
                 <div className="container-fluid">
                   <div className="row">

@@ -253,6 +253,7 @@ const CategoryForm = (props) => {
                                                 return catUserItem.id != catUser.id 
                                             })
                                             setCatSelectedUsers(filteredCatSelectedUsers)
+                                            setCatSelectedUserIds([])
                                             if(filteredCatSelectedUsers.length > 0) {
                                                 filteredCatSelectedUsers.forEach((item, index) => {
                                                     setCatSelectedUserIds([...catSelectedUserIds, parseInt(item.id)])

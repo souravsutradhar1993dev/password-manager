@@ -8,7 +8,7 @@ const NotFound = (props) => {
     const baseRoute = localStorage.getItem("routeBase");
     return (
         <div className="content-wrapper">
-            <Breadcumb getcat={props.getcat} title="404 Error" id="" addButton="password" />
+            <Breadcumb getcat={props.getcat} title="404 Error" id="" addButton="password" pageType="not_found" />
                 <section className="content">
                     <div className="error-page">
                         <h2 className="headline text-warning"> 404</h2>

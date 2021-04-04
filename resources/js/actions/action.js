@@ -23,12 +23,16 @@ export const getuser = () => {
     }
 }
 
-export const getalluser = () => {
+export const getalluser = (type = 'form', search = '') => {
     return async (dispatch) => {
         const apiToken = await localStorage.getItem("authToken");
         const baseUrl = await localStorage.getItem("baseUrl");
-        
-        const data = await fetch(baseUrl + '/api/user', {
+        let url = baseUrl + '/api/user?type=' + type
+        if(search !== '') {
+            url = url + '&s=' + search
+        }
+
+        const data = await fetch(url, {
             method: 'GET',
             headers: {
               'Accept': 'application/json',
@@ -114,14 +118,17 @@ export const editpassword = (editId) => {
     }
 }
 
-export const getcategorychildren = (id) => {
+export const getcategorychildren = (id, search = '') => {
         
     return async (dispatch) => {
         const apiToken = await localStorage.getItem("authToken");
         const baseUrl = await localStorage.getItem("baseUrl");
         const baseRoute = localStorage.getItem("routeBase");
-        
         let url = id !== '' ? baseUrl + '/api/category/' + id : baseUrl + '/api/all_category'
+        if(search !== '') {
+            url = url + '?s=' + search;
+        }
+        
         const data = await fetch(url, {
             method: 'GET',
             headers: {
@@ -145,12 +152,15 @@ export const getcategorychildren = (id) => {
 
 
 
-export const getshared = () => {
+export const getshared = (search = '') => {
     return async (dispatch) => {
         const apiToken = await localStorage.getItem("authToken");
         const baseUrl = await localStorage.getItem("baseUrl");
-        
-        const data = await fetch(baseUrl + '/api/share', {
+        let url = baseUrl + '/api/share';
+        if(search !== '') {
+            url = url + '?s=' + search
+        }
+        const data = await fetch(url, {
             method: 'GET',
             headers: {
               'Accept': 'application/json',
@@ -167,12 +177,15 @@ export const getshared = () => {
     }
 }
 
-export const getsharedchildren = (id) => {
+export const getsharedchildren = (id, search = '') => {
     return async (dispatch) => {
         const apiToken = await localStorage.getItem("authToken");
         const baseUrl = await localStorage.getItem("baseUrl");
-        
-        const data = await fetch(baseUrl + '/api/share?id=' + id, {
+        let url = baseUrl + '/api/share?id=' + id;
+        if(search !== '') {
+            url = url + '&s=' + search
+        }
+        const data = await fetch(url, {
             method: 'GET',
             headers: {
               'Accept': 'application/json',

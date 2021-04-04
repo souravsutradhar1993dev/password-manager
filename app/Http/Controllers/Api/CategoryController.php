@@ -143,6 +143,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category_id = decrypt($id);
+        $search = isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '';
         $current_category_name = '';
         $current_category_id = '';
         if(Auth::user()->role == 'admin' || Auth::user()->role == 'super-admin') {
@@ -155,20 +156,36 @@ class CategoryController extends Controller
             $current_category_name = $currentCategory['title'];
             $current_category_id = encrypt($currentCategory['id']);
             if(Auth::user()->role == 'admin' || Auth::user()->role == 'super-admin') {
-                $categories = Category::select('title', 'category_icon', 'id')->where([['active', 1], ['category_parent_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                if(!empty($search)) {
+                    $categories = Category::select('title', 'category_icon', 'id')->where([['active', 1], ['category_parent_id', $category_id], ['title', 'like', "%$search%"]])->orderBy('id', 'DESC')->get()->toArray();
+                }else {
+                    $categories = Category::select('title', 'category_icon', 'id')->where([['active', 1], ['category_parent_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                }
+                
             }else {
-                $categories = Category::select('title', 'category_icon', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_parent_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                if(!empty($search)) {
+                    $categories = Category::select('title', 'category_icon', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_parent_id', $category_id], ['title', 'like', "%$search%"]])->orderBy('id', 'DESC')->get()->toArray();
+                }else {
+                    $categories = Category::select('title', 'category_icon', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_parent_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                }
             }
             
-        
             foreach($categories as $key => $category) {
                 $categories[$key]['id'] = encrypt($category['id']);
             }
 
             if(Auth::user()->role == 'admin' || Auth::user()->role == 'super-admin') {
-                $passwords = Password::select('name', 'account_type', 'id')->where([['active', 1], ['category_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                if(!empty($search)) {
+                    $passwords = Password::select('name', 'account_type', 'id')->where([['active', 1], ['category_id', $category_id], ['name', 'like', "%$search%"]])->orderBy('id', 'DESC')->get()->toArray();
+                }else {
+                    $passwords = Password::select('name', 'account_type', 'id')->where([['active', 1], ['category_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                }
             }else {
-                $passwords = Password::select('name', 'account_type', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                if(!empty($search)) {
+                    $passwords = Password::select('name', 'account_type', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_id', $category_id], ['name', 'like', "%$search%"]])->orderBy('id', 'DESC')->get()->toArray();
+                }else {
+                    $passwords = Password::select('name', 'account_type', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_id', $category_id]])->orderBy('id', 'DESC')->get()->toArray();
+                }
             }
     
             foreach($passwords as $key => $password) {
@@ -326,10 +343,20 @@ class CategoryController extends Controller
     public function get_all_category() {
         $categories = [];
         $passwords = [];
+        $search = isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '';
         if(Auth::user()->role == 'admin' || Auth::user()->role == 'super-admin') {
-            $categories = Category::select('title', 'category_icon', 'id')->where([['active', 1], ['category_parent_id', 0]])->orderBy('title', 'ASC')->get()->toArray();
+            if(!empty($search)) {
+                $categories = Category::select('title', 'category_icon', 'id')->where([['active', 1], ['category_parent_id', 0], ['title', 'like', "%$search%"]])->orderBy('title', 'ASC')->get()->toArray();
+            }else {
+                $categories = Category::select('title', 'category_icon', 'id')->where([['active', 1], ['category_parent_id', 0]])->orderBy('title', 'ASC')->get()->toArray();
+            }
+            
         }else {
-            $categories = Category::select('title', 'category_icon', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_parent_id', 0]])->orderBy('title', 'ASC')->get()->toArray();
+            if(!empty($search)) {
+                $categories = Category::select('title', 'category_icon', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_parent_id', 0], ['title', 'like', "%$search%"]])->orderBy('title', 'ASC')->get()->toArray();
+            }else {
+                $categories = Category::select('title', 'category_icon', 'id')->where([['created_by', Auth::user()->id], ['active', 1], ['category_parent_id', 0]])->orderBy('title', 'ASC')->get()->toArray();
+            }
         }
         
     
@@ -352,6 +379,7 @@ class CategoryController extends Controller
         $category_id = '';
         $category_permission = '';
         $id = isset($_GET['id']) && !empty($_GET['id']) ? decrypt($_GET['id']) : '';
+        $search = isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '';
 
         if(Auth::user()->role == 'employee') {
             if($id != '') {
@@ -360,11 +388,18 @@ class CategoryController extends Controller
                 $category_id = encrypt($category['id']);
                 $permission = Category_permissions::select("permission_type")->where([['category_id', $id],['user_id', Auth::user()->id]])->first();
                 $category_permission = $permission['permission_type'];
-                
-                $categories = DB::table('categories')
+                if(!empty($search)) {
+                    $categories = DB::table('categories')
+                            ->select('categories.title', 'categories.category_icon', 'categories.id', 'category_permissions.permission_type')
+                            ->join('category_permissions','category_permissions.category_id','=','categories.id')
+                            ->where(['categories.active' => 1, 'category_permissions.type' => 'category', 'category_permissions.user_id' => Auth::user()->id, 'category_parent_id'=> $id])->where('categories.title', 'like', "%$search%")->orderBy('categories.id', 'DESC')->get();
+                }else {
+                    $categories = DB::table('categories')
                             ->select('categories.title', 'categories.category_icon', 'categories.id', 'category_permissions.permission_type')
                             ->join('category_permissions','category_permissions.category_id','=','categories.id')
                             ->where(['categories.active' => 1, 'category_permissions.type' => 'category', 'category_permissions.user_id' => Auth::user()->id, 'category_parent_id'=> $id])->orderBy('categories.id', 'DESC')->get();
+                }
+                
                 Category_activity::where([['user_id', Auth::user()->id], ['category_id', $id]])->delete();
                 $category_activities = new Category_activity;
                 $category_activities->user_id = Auth::user()->id;
@@ -372,10 +407,17 @@ class CategoryController extends Controller
                 $category_activities->type = 'share';
                 $category_activities->save();
             }else {
-                $categories = DB::table('categories')
-                            ->select('categories.title', 'categories.category_icon', 'categories.id', 'category_permissions.permission_type')
-                            ->join('category_permissions','category_permissions.category_id','=','categories.id')
-                            ->where(['categories.active' => 1, 'category_permissions.type' => 'category', 'category_permissions.user_id' => Auth::user()->id])->orderBy('categories.id', 'DESC')->get();
+                if(!empty($search)) {
+                    $categories = DB::table('categories')
+                                ->select('categories.title', 'categories.category_icon', 'categories.id', 'category_permissions.permission_type')
+                                ->join('category_permissions','category_permissions.category_id','=','categories.id')
+                                ->where(['categories.active' => 1, 'category_permissions.type' => 'category', 'category_permissions.user_id' => Auth::user()->id])->where('categories.title', 'like', "%$search%")->orderBy('categories.id', 'DESC')->get();
+                }else {
+                    $categories = DB::table('categories')
+                                ->select('categories.title', 'categories.category_icon', 'categories.id', 'category_permissions.permission_type')
+                                ->join('category_permissions','category_permissions.category_id','=','categories.id')
+                                ->where(['categories.active' => 1, 'category_permissions.type' => 'category', 'category_permissions.user_id' => Auth::user()->id])->orderBy('categories.id', 'DESC')->get();
+                }
             }
             
     
@@ -383,15 +425,29 @@ class CategoryController extends Controller
                 $categories[$key]->id = encrypt($category->id);
             }
             if($id != '') {
-                $passwords = DB::table('passwords')
-                            ->select('passwords.name', 'passwords.account_type', 'passwords.id', 'category_permissions.permission_type')
-                            ->join('category_permissions','category_permissions.category_id','=','passwords.id')
-                            ->where(['passwords.active' => 1, 'category_permissions.type' => 'password', 'category_permissions.user_id' => Auth::user()->id, 'passwords.category_id' => $id])->orderBy('passwords.id', 'DESC')->get();
+                if(!empty($search)) {
+                    $passwords = DB::table('passwords')
+                                ->select('passwords.name', 'passwords.account_type', 'passwords.id', 'category_permissions.permission_type')
+                                ->join('category_permissions','category_permissions.category_id','=','passwords.id')
+                                ->where(['passwords.active' => 1, 'category_permissions.type' => 'password', 'category_permissions.user_id' => Auth::user()->id, 'passwords.category_id' => $id])->where('passwords.name', 'like', "%$search%")->orderBy('passwords.id', 'DESC')->get();
+                }else {
+                    $passwords = DB::table('passwords')
+                                ->select('passwords.name', 'passwords.account_type', 'passwords.id', 'category_permissions.permission_type')
+                                ->join('category_permissions','category_permissions.category_id','=','passwords.id')
+                                ->where(['passwords.active' => 1, 'category_permissions.type' => 'password', 'category_permissions.user_id' => Auth::user()->id, 'passwords.category_id' => $id])->orderBy('passwords.id', 'DESC')->get();
+                }
             }else {
-                $passwords = DB::table('passwords')
-                            ->select('passwords.name', 'passwords.account_type', 'passwords.id', 'category_permissions.permission_type')
-                            ->join('category_permissions','category_permissions.category_id','=','passwords.id')
-                            ->where(['passwords.active' => 1, 'category_permissions.type' => 'password', 'category_permissions.user_id' => Auth::user()->id])->orderBy('passwords.id', 'DESC')->get();
+                if(!empty($search)) {
+                    $passwords = DB::table('passwords')
+                                ->select('passwords.name', 'passwords.account_type', 'passwords.id', 'category_permissions.permission_type')
+                                ->join('category_permissions','category_permissions.category_id','=','passwords.id')
+                                ->where(['passwords.active' => 1, 'category_permissions.type' => 'password', 'category_permissions.user_id' => Auth::user()->id])->where('passwords.name', 'like', "%$search%")->orderBy('passwords.id', 'DESC')->get();
+                }else {
+                    $passwords = DB::table('passwords')
+                                ->select('passwords.name', 'passwords.account_type', 'passwords.id', 'category_permissions.permission_type')
+                                ->join('category_permissions','category_permissions.category_id','=','passwords.id')
+                                ->where(['passwords.active' => 1, 'category_permissions.type' => 'password', 'category_permissions.user_id' => Auth::user()->id])->orderBy('passwords.id', 'DESC')->get();
+                }
             }
             
 

@@ -18,7 +18,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where([['id', '!=', Auth::user()->id], ['is_active', 1]])->get()->toArray();
+        $type = isset($_GET['type']) && !empty($_GET['type']) ? $_GET['type'] : 'form';
+        $search = isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '';
+        if($type == 'form') {
+            $users = User::where([['id', '!=', Auth::user()->id], ['is_active', 1]])->whereNotIn('role', ['admin','super-admin'])->get()->toArray();
+        }else {
+            if(!empty($search)) {
+                $users = User::where([['id', '!=', Auth::user()->id], ['is_active', 1], ['name', 'like', "%$search%"]])->get()->toArray();
+            }else {
+                $users = User::where([['id', '!=', Auth::user()->id], ['is_active', 1]])->get()->toArray();
+            }
+            
+        }
+        
         foreach($users as $key => $user) {
             $users[$key]['name'] = ucwords($user['name']);
             $users[$key]['role_title'] = ucwords(str_replace('-', ' ', $user['role']));

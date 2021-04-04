@@ -37,4 +37,6 @@ Route::middleware('auth:api')->get('/share_category/{id}', [App\Http\Controllers
 Route::middleware('auth:api')->get('/share_password/{id}', [App\Http\Controllers\Api\CategoryController::class, 'show_shared_password'])->name('show_shared_password');
 Route::middleware('auth:api')->get('/all_category', [App\Http\Controllers\Api\CategoryController::class, 'get_all_category'])->name('get_all_category');
 Route::middleware('auth:api')->get('/recent_category', [App\Http\Controllers\Api\CategoryController::class, 'get_recent'])->name('get_recent_category');
+Route::middleware('auth:api')->post('/password/upload_csv', [App\Http\Controllers\Api\PasswordController::class, 'upload_csv'])->name('upload_csv');
+Route::middleware('auth:api')->post('/password/export_csv', [App\Http\Controllers\Api\PasswordController::class, 'export_csv'])->name('export_csv');
 

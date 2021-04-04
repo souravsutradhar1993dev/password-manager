@@ -15,6 +15,7 @@ import AdminRoute from './AdminRoute';
 import NonAdminRoute from './NonAdminRoute';
 import AllCategory from './AllCategory';
 import SharedChildren from './SharedChildren';
+import ExportModal from './ExportModal'
 import {getuser, getalluser, getmenucategories, editcategory, editpassword} from '../actions/action'
 import {
     Switch,
@@ -59,6 +60,8 @@ function Index(props) {
             dispatch({ type: 'GET_SHOW_CATEGORY_MODAL', payload: true})
         }else if(type == 'password') {
             dispatch({ type: 'GET_SHOW_PASSWORD_MODAL', payload: true})
+        }else if(type == 'export') {
+            dispatch({ type: 'GET_SHOW_EXPORT_MODAL', payload: true})
         }
     }
 
@@ -126,6 +129,7 @@ function Index(props) {
             </div>
             <CategoryForm categories={categoryList} />
             <PasswordForm categories={categoryList} />
+            <ExportModal categories={categoryList} />
             <MyProfile />
         </>
     );

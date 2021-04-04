@@ -12,11 +12,28 @@ const SharedPasswordForm = (props) => {
     const customUrlInput = useRef(null);
     const customUsernameInput = useRef(null);
     const customEmailInput = useRef(null);
+
+    const socialPasswordInput = useRef(null);
+    const socialUsernameInput = useRef(null);
+
     const webUrlInput = useRef(null);
     const webUsernameInput = useRef(null);
     const webPasswordInput = useRef(null);
+
+    const ftpUrlInput = useRef(null);
+    const ftpUsernameInput = useRef(null);
+    const ftpPasswordInput = useRef(null);
+
+    const cpanelUrlInput = useRef(null);
+    const cpanelUsernameInput = useRef(null);
+    const cpanelPasswordInput = useRef(null);
+
     const userEmailInput = useRef(null);
     const userPasswordInput = useRef(null);
+
+    const gsuiteEmailInput = useRef(null);
+    const gsuitePasswordInput = useRef(null);
+
     const wifiPasswordInput = useRef(null);
     const cardNumberInput = useRef(null);
     const cardDateInput = useRef(null);
@@ -25,7 +42,7 @@ const SharedPasswordForm = (props) => {
     const cryptPasswordInput = useRef(null);
     const cryptSeedInput = useRef(null);
 
-    const [accountType, setAccountType] = useState("web")
+    const [accountType, setAccountType] = useState("ftp")
     const [saveButtonText, setSaveButtonText] = useState('Save');
     const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
@@ -35,9 +52,23 @@ const SharedPasswordForm = (props) => {
     const [customusernametooltipshow, setCustomUsernameTooltipshow] = useState(false);
     const [customemailtooltipshow, setCustomEmailTooltipshow] = useState(false);
 
+    const [socialpasswordtooltipshow, setSocialPasswordTooltipshow] = useState(false);
+    const [socialusernametooltipshow, setSocialUsernameTooltipshow] = useState(false);
+
     const [weburltooltipshow, setWebUrlTooltipshow] = useState(false);
     const [webusernametooltipshow, setWebUsernameTooltipshow] = useState(false);
     const [webpasswordtooltipshow, setWebPasswordTooltipshow] = useState(false);
+
+    const [ftpurltooltipshow, setFtpUrlTooltipshow] = useState(false);
+    const [ftpusernametooltipshow, setFtpUsernameTooltipshow] = useState(false);
+    const [ftppasswordtooltipshow, setFtpPasswordTooltipshow] = useState(false);
+
+    const [cpanelurltooltipshow, setCpanelUrlTooltipshow] = useState(false);
+    const [cpanelusernametooltipshow, setCpanelUsernameTooltipshow] = useState(false);
+    const [cpanelpasswordtooltipshow, setCpanelPasswordTooltipshow] = useState(false);
+
+    const [gsuiteemailtooltipshow, setGsuiteEmailTooltipshow] = useState(false);
+    const [gsuitepasswordtooltipshow, setGsuitePasswordTooltipshow] = useState(false);
 
     const [useremailtooltipshow, setUserEmailTooltipshow] = useState(false);
     const [userpasswordtooltipshow, setUserPasswordTooltipshow] = useState(false);
@@ -52,11 +83,17 @@ const SharedPasswordForm = (props) => {
     const [cryptpasswordtooltipshow, setCryptPasswordTooltipshow] = useState(false);
     const [cryptseedtooltipshow, setCryptSeedTooltipshow] = useState(false);
 
+    const [ftpPasswordInputType, setFtpPasswordInputType] = useState(true);
+    const [cpanelPasswordInputType, setCpanelPasswordInputType] = useState(true);
+    const [gsuitePasswordInputType, setGsuitePasswordInputType] = useState(true);
+    const [socialPasswordInputType, setSocialPasswordInputType] = useState(true);
     const [customPasswordInputType, setCustomPasswordInputType] = useState(true);
     const [webPasswordInputType, setWebPasswordInputType] = useState(true);
     const [userPasswordInputType, setUserPasswordInputType] = useState(true);
     const [wifiPasswordInputType, setWifiPasswordInputType] = useState(true);
     const [cryptPasswordInputType, setCryptPasswordInputType] = useState(true);
+
+    const [isEditForm, setIsEditForm] = useState(false)
 
     const onCopyCryptSeed = () => {
         setIsCopied(true);
@@ -139,6 +176,24 @@ const SharedPasswordForm = (props) => {
         }, 1000);
     };
 
+    const onCopyGsuitePassword = () => {
+        setIsCopied(true);
+        setGsuitePasswordTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setGsuitePasswordTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopyGsuiteEmail = () => {
+        setIsCopied(true);
+        setGsuiteEmailTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setGsuiteEmailTooltipshow(false)
+        }, 1000);
+    };
+
     const onCopyWebPassword = () => {
         setIsCopied(true);
         setWebPasswordTooltipshow(true)
@@ -163,6 +218,60 @@ const SharedPasswordForm = (props) => {
         setTimeout(() => {
           setIsCopied(false);
           setWebUrlTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopyFtpPassword = () => {
+        setIsCopied(true);
+        setFtpPasswordTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setFtpPasswordTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopyFtpUsername = () => {
+        setIsCopied(true);
+        setFtpUsernameTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setFtpUsernameTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopyFtpUrl = () => {
+        setIsCopied(true);
+        setFtpUrlTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setFtpUrlTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopyCpanelPassword = () => {
+        setIsCopied(true);
+        setCpanelPasswordTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setCpanelPasswordTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopyCpanelUsername = () => {
+        setIsCopied(true);
+        setCpanelUsernameTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setCpanelUsernameTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopyCpanelUrl = () => {
+        setIsCopied(true);
+        setCpanelUrlTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setCpanelUrlTooltipshow(false)
         }, 1000);
     };
 
@@ -201,12 +310,46 @@ const SharedPasswordForm = (props) => {
         }, 1000);
     };
 
+    const onCopySocialPassword = () => {
+        setIsCopied(true);
+        setSocialPasswordTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setSocialPasswordTooltipshow(false)
+        }, 1000);
+    };
+
+    const onCopySocialUsername = () => {
+        setIsCopied(true);
+        setSocialUsernameTooltipshow(true)
+        setTimeout(() => {
+          setIsCopied(false);
+          setSocialUsernameTooltipshow(false)
+        }, 1000);
+    };
+
     const dispatch = useDispatch();
-    const userName = useSelector((state) => {
-        return state.user.user.name;
-    })
 
     const [passwordName, setPasswordName] = useState('')
+
+    const [ftpUrl, setFtpUrl] = useState('')
+    const [ftpUsername, setFtpUsername] = useState('')
+    const [ftpPassword, setFtpPassword] = useState('')
+    const [ftpNotes, setFtpNotes] = useState('')
+
+    const [cpanelUrl, setCpanelUrl] = useState('')
+    const [cpanelUsername, setCpanelUsername] = useState('')
+    const [cpanelPassword, setCpanelPassword] = useState('')
+    const [cpanelNotes, setCpanelNotes] = useState('')
+
+    const [gsuiteEmail, setGsuiteEmail] = useState('')
+    const [gsuitePwd, setGsuitePwd] = useState('')
+    const [gsuiteNotes, setGsuiteNotes] = useState('')
+
+    const [socialUsername, setSocialUsername] = useState('')
+    const [socialPassword, setSocialPassword] = useState('')
+    const [socialNotes, setSocialNotes] = useState('')
+
     const [webUrl, setWebUrl] = useState('')
     const [webUsername, setWebUsername] = useState('')
     const [webPassword, setWebPassword] = useState('')
@@ -229,9 +372,9 @@ const SharedPasswordForm = (props) => {
     const [customPassword, setCustomPassword] = useState('')
     const [customEmail, setCustomEmail] = useState('')
     const [customNotes, setCustomNotes] = useState('')
+    const [passwordId, setPasswordId] = useState(0)
     const [ownerName, setOwnerName] = useState('')
     const [ownerEmail, setOwnerEmail] = useState('')
-    const [passwordId, setPasswordId] = useState(0)
 
     const resetFields = () => {
         setPasswordName('')
@@ -239,9 +382,20 @@ const SharedPasswordForm = (props) => {
         setWebUsername('')
         setWebPassword('')
         setWebNotes('')
+        setFtpUrl('')
+        setFtpUsername('')
+        setFtpPassword('')
+        setFtpNotes('')
+        setCpanelUrl('')
+        setCpanelUsername('')
+        setCpanelPassword('')
+        setCpanelNotes('')
         setUserEmail('')
         setUserPwd('')
         setEmailNotes('')
+        setGsuiteEmail('')
+        setGsuitePwd('')
+        setGsuiteNotes('')
         setWifiPwd('')
         setWifiNotes('')
         setCardNumber('')
@@ -257,6 +411,9 @@ const SharedPasswordForm = (props) => {
         setCustomPassword('')
         setCustomEmail('')
         setCustomNotes('')
+        setSocialUsername('')
+        setSocialPassword('')
+        setSocialNotes('')
     }
 
     const savePassword = async () => {
@@ -267,6 +424,44 @@ const SharedPasswordForm = (props) => {
             const apiToken = await localStorage.getItem("authToken");
             var data;
             switch(accountType) {
+                case 'cpanel' :
+                    data = {
+                        name: passwordName,
+                        url: cpanelUrl,
+                        username: cpanelUsername,
+                        password: cpanelPassword,
+                        notes: cpanelNotes,
+                        account_type: accountType
+                    }
+                break;
+                case 'gsuite' : 
+                data = {
+                    name: passwordName,
+                    email: gsuiteEmail,
+                    password: gsuitePwd,
+                    notes: gsuiteNotes,
+                    account_type: accountType
+                }
+                break;
+                case 'social' : 
+                data = {
+                    name: passwordName,
+                    username:socialUsername,
+                    password:socialPassword,
+                    notes:socialNotes,
+                    account_type: accountType
+                }
+                break;
+                case 'web' :
+                    data = {
+                        name: passwordName,
+                        url: webUrl,
+                        username: webUsername,
+                        password: webPassword,
+                        notes: webNotes,
+                        account_type: accountType
+                    }
+                break;
                 case 'email' : 
                 data = {
                     name: passwordName,
@@ -318,18 +513,18 @@ const SharedPasswordForm = (props) => {
                 default:
                 data = {
                     name: passwordName,
-                    url: webUrl,
-                    username: webUsername,
-                    password: webPassword,
-                    notes: webNotes,
+                    url: ftpUrl,
+                    username: ftpUsername,
+                    password: ftpPassword,
+                    notes: ftpNotes,
                     account_type: accountType
                 }
                 break;
 
             }
-            let url = baseUrl + '/api/share_password/update/' + props.passwordId
+            let url =  baseUrl + '/api/share_password/update/' + props.passwordId
             const response = await fetch(url, {
-                method: 'POST', 
+                method: 'POST',
                 mode: 'cors', 
                 cache: 'no-cache', 
                 credentials: 'same-origin', 
@@ -348,7 +543,7 @@ const SharedPasswordForm = (props) => {
                 setSaveButtonDisabled(false);
 
                 if(res2.success) {
-                    setAccountType('web')
+                    setAccountType('ftp')
                     resetFields()
                     props.changePasswordModel(false)
                     dispatch(getshared(props.sharedId))
@@ -370,6 +565,20 @@ const SharedPasswordForm = (props) => {
             }
         }
     }
+
+    const accountTypes = [];
+    accountTypes['ftp'] = 'FTP Account';
+    accountTypes['cpanel'] = 'Hosting Control Panel Account';
+    accountTypes['gsuite'] = 'Gsuites Account';
+    accountTypes['social'] = 'Social Media Account';
+    accountTypes['web'] = 'Web Account';
+    accountTypes['email'] = 'Email Account';
+    accountTypes['wifi'] = 'Wifi Account';
+    accountTypes['credit'] = 'Card Card Account';
+    accountTypes['crypto'] = 'Cryptocurrency';
+    accountTypes['custom'] = 'Custom Account';
+
+    const [accountTypeLists, setAccountTypeLists] = useState(accountTypes)
 
     const changeAccountTypeHandler = (e) => {
         resetFields()
@@ -396,35 +605,63 @@ const SharedPasswordForm = (props) => {
             dispatch(getsharedpassword(props.passwordId))
         }
         if(singlePassword.password !== undefined) {
-            setOwnerName(singlePassword.user_data.name)
-            setOwnerEmail(singlePassword.user_data.email)
+            setIsEditForm( props.passwordType == 'edit' ? true : false)
             setAccountType(singlePassword.password.account_type)
             setPasswordId(singlePassword.password.id)
+            setOwnerName(singlePassword.user_data.name)
+            setOwnerEmail(singlePassword.user_data.email)
+            setPasswordId(singlePassword.password.id)
             switch(singlePassword.password.account_type) {
+                case 'cpanel' : 
+                setPasswordName(singlePassword.password.name)
+                setCpanelUrl(singlePassword.password_data.url)
+                setCpanelUsername(singlePassword.password_data.username)
+                setCpanelPassword(singlePassword.password_data.password)
+                setCpanelNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
+                break;
+                case 'gsuite' : 
+                setPasswordName(singlePassword.password.name)
+                setGsuiteEmail(singlePassword.password_data.email)
+                setGsuitePwd(singlePassword.password_data.password)
+                setGsuiteNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
+                break;
+                case 'social' : 
+                setPasswordName(singlePassword.password.name)
+                setSocialUsername(singlePassword.password_data.username)
+                setSocialPassword(singlePassword.password_data.password)
+                setSocialNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
+                break;
+                case 'web' : 
+                setPasswordName(singlePassword.password.name)
+                setWebUrl(singlePassword.password_data.url)
+                setWebUsername(singlePassword.password_data.username)
+                setWebPassword(singlePassword.password_data.password)
+                setWebNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
+                break;
                 case 'email' : 
                 setPasswordName(singlePassword.password.name)
                 setUserEmail(singlePassword.password_data.email)
                 setUserPwd(singlePassword.password_data.password)
-                setEmailNotes(singlePassword.password_data.notes)
+                setEmailNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
                 break;
                 case 'wifi' : 
                 setPasswordName(singlePassword.password.name)
                 setWifiPwd(singlePassword.password_data.password)
-                setWifiNotes(singlePassword.password_data.notes)
+                setWifiNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
                 break;
                 case 'credit' : 
                 setPasswordName(singlePassword.password.name)
                 setCardNumber(singlePassword.password_data.number)
                 setExpireDate(singlePassword.password_data.date)
                 setCardCvv(singlePassword.password_data.cvv)
-                setCardNotes(singlePassword.password_data.notes)
+                setCardNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
                 break;
                 case 'crypto' : 
                 setPasswordName(singlePassword.password.name)
                 setCryptUsername(singlePassword.password_data.username)
                 setCryptPassword(singlePassword.password_data.password)
                 setCryptSeed(singlePassword.password_data.seed)
-                setCryptNotes(singlePassword.password_data.notes)
+                setCryptNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
                 break;
                 case 'custom' : 
                 setPasswordName(singlePassword.password.name)
@@ -432,57 +669,380 @@ const SharedPasswordForm = (props) => {
                 setCustomUsername(singlePassword.password_data.username)
                 setCustomPassword(singlePassword.password_data.password)
                 setCustomEmail(singlePassword.password_data.email)
-                setCustomNotes(singlePassword.password_data.notes)
+                setCustomNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
                 break;
                 default:
                 setPasswordName(singlePassword.password.name)
-                setWebUrl(singlePassword.password_data.url)
-                setWebUsername(singlePassword.password_data.username)
-                setWebPassword(singlePassword.password_data.password)
-                setWebNotes(singlePassword.password_data.notes)
+                setFtpUrl(singlePassword.password_data.url)
+                setFtpUsername(singlePassword.password_data.username)
+                setFtpPassword(singlePassword.password_data.password)
+                setFtpNotes(singlePassword.password_data.notes == null ? '' : singlePassword.password_data.notes)
                 break;
-
-            }
+            }  
+        }else {
+            resetFields()
+            setPasswordId(0)
+            setAccountType('ftp')
         }
     }, [singlePassword, props.isShowPasswordModal, props.passwordId])
-
+    
     return (
       <>
       <Modal show={props.isShowPasswordModal} onHide={() =>{
-        setAccountType('web')
+        setAccountType('ftp')
         resetFields()
         props.changePasswordModel(false)
        }} size="lg" backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>
-            <div className="form-group">
+            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                <h4>{accountTypeLists[accountType]}</h4>
+            </div>
+            <div className="form-group edit" style={{display: isEditForm ? 'flex' : 'none'}}>
                 <select className="custom-select form-control-border" onChange={changeAccountTypeHandler} value={accountType}>
-                    <option value="web">Web Account</option>
-                    <option value="email">Email Account</option>
-                    <option value="wifi">Wifi Account</option>
-                    <option value="credit">Card Card Account</option>
-                    <option value="crypto">Cryptocurrency</option>
-                    <option value="custom">Custom Account</option>
+                    {
+                        Object.keys(accountTypeLists).map((key, ind) => (
+                            <option key={ind} value={key}>{accountTypeLists[key]}</option>
+                        ))
+                    }
                 </select>
             </div>
           </Modal.Title>
           <div className="header-password-trash">
                 <p>Owned by </p><strong>{ownerName + " (" + ownerEmail + ")"}</strong>
           </div>
+          
         </Modal.Header>
         <Modal.Body>
             <div className="row">
                 <div className="col-sm-12">
                     <div className="form-group">
                         <label htmlFor="passwordName">Name</label>
-                        <input type="text" className="form-control" id="passwordName" placeholder="Enter name" value={passwordName} onChange={(e) => setPasswordName(e.target.value) } />
+                        <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                            <p>{passwordName}</p>
+                        </div>
+                        <input type="text" className="form-control edit" style={{display: isEditForm ? 'flex' : 'none'}} id="passwordName" placeholder="Enter name" value={passwordName} onChange={(e) => setPasswordName(e.target.value) } />
                     </div>
                    
+                    <div id="ftpAccount" style={{display: accountType === 'ftp' ? 'block' : 'none'}}>
+                        <div className="form-group">
+                            <label htmlFor="ftpUrl">URL</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{ftpUrl}</p>
+                            </div>
+                            <div className="input-group mb-3 edit" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type="text" className="form-control" id="ftpUrl" placeholder="Enter URL" value={ftpUrl} onChange={(e) => setFtpUrl(e.target.value) } />
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    if(validator.isURL(ftpUrl)) {
+                                        window.open(ftpUrl, '_blank');
+                                    }
+                                }}>
+                                    <span className="input-group-text"><i className="fas fa-external-link-alt"></i></span>
+                                </div>
+                                <div className="input-group-append input-group-action" ref={ftpUrlInput}>
+                                    <CopyToClipboard text={ftpUrl} onCopy={onCopyFtpUrl}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={ftpUrlInput.current} show={ftpurltooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="ftpUsername">Username</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{ftpUsername}</p>
+                            </div>
+                            <div className="input-group mb-3 edit" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type="text" className="form-control" id="ftpUsername" placeholder="Enter username" value={ftpUsername} onChange={(e) => setFtpUsername(e.target.value) } />
+                                <div className="input-group-append input-group-action" ref={ftpUsernameInput}>
+                                    <CopyToClipboard text={ftpUsername} onCopy={onCopyFtpUsername}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={ftpUsernameInput.current} show={ftpusernametooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+                            
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="ftpPassword">Password</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{ftpPassword}</p>
+                            </div>
+                            <div className="input-group mb-3 edit" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type={ftpPasswordInputType ? 'password' : 'text'} className="form-control" id="ftpPassword" placeholder="Enter password" value={ftpPassword} onChange={(e) => setFtpPassword(e.target.value) } />
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    setFtpPasswordInputType(!ftpPasswordInputType)
+                                }}>
+                                    <span className="input-group-text"><i className={ftpPasswordInputType ? 'fas fa-eye' : 'fa fa-eye-slash'} /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    let pwd = generatePassword() 
+                                    setFtpPassword(pwd)
+                                }}>
+                                    <span className="input-group-text"><i className="fas fa-sync" /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" ref={ftpPasswordInput}>
+                                    <CopyToClipboard text={ftpPassword} onCopy={onCopyFtpPassword}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={ftpPasswordInput.current} show={ftppasswordtooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+                            
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="ftpNotes">Notes</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{ftpNotes}</p>
+                            </div>
+                            <textarea className="form-control edit" style={{display: isEditForm ? 'flex' : 'none'}} id="ftpNotes" value={ftpNotes} onChange={(e) => setFtpNotes(e.target.value) } ></textarea>
+                        </div>
+                    </div>
+                    <div id="cpanelAccount" style={{display: accountType === 'cpanel' ? 'block' : 'none'}}>
+                        <div className="form-group">
+                            <label htmlFor="cpanelUrl">URL</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cpanelUrl}</p>
+                            </div>
+                            <div className="input-group mb-3 edit" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type="text" className="form-control" id="cpanelUrl" placeholder="Enter URL" value={cpanelUrl} onChange={(e) => setCpanelUrl(e.target.value) } />
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    if(validator.isURL(cpanelUrl)) {
+                                        window.open(cpanelUrl, '_blank');
+                                    }
+                                }}>
+                                    <span className="input-group-text"><i className="fas fa-external-link-alt"></i></span>
+                                </div>
+                                <div className="input-group-append input-group-action" ref={cpanelUrlInput}>
+                                    <CopyToClipboard text={cpanelUrl} onCopy={onCopyCpanelUrl}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={cpanelUrlInput.current} show={cpanelurltooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="cpanelUsername">Username</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cpanelUsername}</p>
+                            </div>
+                            <div className="input-group mb-3 edit" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type="text" className="form-control" id="cpanelUsername" placeholder="Enter username" value={cpanelUsername} onChange={(e) => setCpanelUsername(e.target.value) } />
+                                <div className="input-group-append input-group-action" ref={cpanelUsernameInput}>
+                                    <CopyToClipboard text={cpanelUsername} onCopy={onCopyCpanelUsername}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={cpanelUsernameInput.current} show={cpanelusernametooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+                            
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="cpanelPassword">Password</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cpanelPassword}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type={cpanelPasswordInputType ? 'password' : 'text'} className="form-control" id="cpanelPassword" placeholder="Enter password" value={cpanelPassword} onChange={(e) => setCpanelPassword(e.target.value) } />
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    setCpanelPasswordInputType(!cpanelPasswordInputType)
+                                }}>
+                                    <span className="input-group-text"><i className={cpanelPasswordInputType ? 'fas fa-eye' : 'fa fa-eye-slash'} /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    let pwd = generatePassword() 
+                                    setCpanelPassword(pwd)
+                                }}>
+                                    <span className="input-group-text"><i className="fas fa-sync" /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" ref={cpanelPasswordInput}>
+                                    <CopyToClipboard text={cpanelPassword} onCopy={onCopyCpanelPassword}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={cpanelPasswordInput.current} show={cpanelpasswordtooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+                            
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="cpanelNotes">Notes</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cpanelNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="cpanelNotes" value={cpanelNotes} onChange={(e) => setCpanelNotes(e.target.value) } ></textarea>
+                        </div>
+                    </div>
+                    <div id="gsuiteAccount" style={{display: accountType === 'gsuite' ? 'block' : 'none'}}>
+                        <div className="form-group">
+                            <label htmlFor="gsuiteEmail">Email</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{gsuiteEmail}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type="email" className="form-control" id="gsuiteEmail" placeholder="Enter email" value={gsuiteEmail} onChange={(e) => setGsuiteEmail(e.target.value) } />
+                                <div className="input-group-append input-group-action" ref={gsuiteEmailInput}>
+                                    <CopyToClipboard text={gsuiteEmail} onCopy={onCopyGsuiteEmail}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={gsuiteEmailInput.current} show={gsuiteemailtooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="gsuitePwd">Password</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{gsuitePwd}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type={gsuitePasswordInputType ? 'password' : 'text'} className="form-control" id="gsuitePwd" placeholder="Enter password" value={gsuitePwd} onChange={(e) => setGsuitePwd(e.target.value) } />
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    setGsuitePasswordInputType(!gsuitePasswordInputType)
+                                }}>
+                                    <span className="input-group-text"><i className={gsuitePasswordInputType ? 'fas fa-eye' : 'fa fa-eye-slash'} /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    let pwd = generatePassword() 
+                                    setGsuitePwd(pwd)
+                                }}>
+                                    <span className="input-group-text"><i className="fas fa-sync" /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" ref={gsuitePasswordInput}>
+                                    <CopyToClipboard text={gsuitePwd} onCopy={onCopyGsuitePassword}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={gsuitePasswordInput.current} show={gsuitepasswordtooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+                            
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="gsuiteNotes">Notes</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{gsuiteNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="gsuiteNotes" value={gsuiteNotes} onChange={(e) => setGsuiteNotes(e.target.value) } ></textarea>
+                        </div>
+                    </div>
+                    <div id="socialAccount" style={{display: accountType === 'social' ? 'block' : 'none'}}>
+                        <div className="form-group">
+                            <label htmlFor="socialUsername">Username</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{socialUsername}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type="text" className="form-control" id="socialUsername" placeholder="Enter username" value={socialUsername} onChange={(e) => setSocialUsername(e.target.value) } />
+                                <div className="input-group-append input-group-action" ref={socialUsernameInput}>
+                                    <CopyToClipboard text={socialUsername} onCopy={onCopySocialUsername}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={socialUsernameInput.current} show={socialusernametooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="socialPassword">Password</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{socialPassword}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
+                                <input type={socialPasswordInputType ? 'password' : 'text'} className="form-control" id="socialPassword" placeholder="Enter password" value={socialPassword} onChange={(e) => setSocialPassword(e.target.value) } />
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    setSocialPasswordInputType(!socialPasswordInputType)
+                                }}>
+                                    <span className="input-group-text"><i className={socialPasswordInputType ? 'fas fa-eye' : 'fa fa-eye-slash'} /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" onClick={() => {
+                                    let pwd = generatePassword() 
+                                    setSocialPassword(pwd)
+                                }}>
+                                    <span className="input-group-text"><i className="fas fa-sync" /></span>
+                                </div>
+                                <div className="input-group-append input-group-action" ref={socialPasswordInput}>
+                                    <CopyToClipboard text={socialPassword} onCopy={onCopySocialPassword}>
+                                        <span className="input-group-text"><i className="fas fa-copy" /></span>
+                                    </CopyToClipboard>
+                                </div>
+                                <Overlay target={socialPasswordInput.current} show={socialpasswordtooltipshow} placement="bottom">
+                                        {(props) => (
+                                        <Tooltip {...props}>
+                                            Copied!
+                                        </Tooltip>
+                                        )}
+                                </Overlay>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="socialNotes">Notes</label>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{socialNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="socialNotes" value={socialNotes} onChange={(e) => setSocialNotes(e.target.value) } ></textarea>
+                        </div>
+                    </div>
                     <div id="webAccount" style={{display: accountType === 'web' ? 'block' : 'none'}}>
                         <div className="form-group">
                             <label htmlFor="webUrl">URL</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{webUrl}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="webUrl" placeholder="Enter URL" value={webUrl} onChange={(e) => setWebUrl(e.target.value) } />
                                 <div className="input-group-append input-group-action" onClick={() => {
                                     if(validator.isURL(webUrl)) {
@@ -508,7 +1068,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="webUsername">Username</label>
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{webUsername}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="webUsername" placeholder="Enter username" value={webUsername} onChange={(e) => setWebUsername(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={webUsernameInput}>
                                     <CopyToClipboard text={webUsername} onCopy={onCopyWebUsername}>
@@ -527,7 +1090,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="webPassword">Password</label>
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{webPassword}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type={webPasswordInputType ? 'password' : 'text'} className="form-control" id="webPassword" placeholder="Enter password" value={webPassword} onChange={(e) => setWebPassword(e.target.value) } />
                                 <div className="input-group-append input-group-action" onClick={() => {
                                     setWebPasswordInputType(!webPasswordInputType)
@@ -557,14 +1123,19 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="webNotes">Notes</label>
-                            <textarea className="form-control" id="webNotes" value={webNotes} onChange={(e) => setWebNotes(e.target.value) } ></textarea>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{webNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="webNotes" value={webNotes} onChange={(e) => setWebNotes(e.target.value) } ></textarea>
                         </div>
                     </div>
                     <div id="emailAccount" style={{display: accountType === 'email' ? 'block' : 'none'}}>
                         <div className="form-group">
                             <label htmlFor="userEmail">Email</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{userEmail}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="email" className="form-control" id="userEmail" placeholder="Enter email" value={userEmail} onChange={(e) => setUserEmail(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={userEmailInput}>
                                     <CopyToClipboard text={userEmail} onCopy={onCopyUserEmail}>
@@ -583,8 +1154,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="userPwd">Password</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{userPwd}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type={userPasswordInputType ? 'password' : 'text'} className="form-control" id="userPwd" placeholder="Enter password" value={userPwd} onChange={(e) => setUserPwd(e.target.value) } />
                                 <div className="input-group-append input-group-action" onClick={() => {
                                     setUserPasswordInputType(!userPasswordInputType)
@@ -614,14 +1187,19 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="emailNotes">Notes</label>
-                            <textarea className="form-control" id="emailNotes" value={emailNotes} onChange={(e) => setEmailNotes(e.target.value) } ></textarea>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{emailNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="emailNotes" value={emailNotes} onChange={(e) => setEmailNotes(e.target.value) } ></textarea>
                         </div>
                     </div>
                     <div id="wifiAccount" style={{display: accountType === 'wifi' ? 'block' : 'none'}}>
                         <div className="form-group">
                             <label htmlFor="wifiPwd">Password</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{wifiPwd}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type={wifiPasswordInputType ? 'password' : 'text'} className="form-control" id="wifiPwd" placeholder="Enter password" value={wifiPwd} onChange={(e) => setWifiPwd(e.target.value) } />
                                 <div className="input-group-append input-group-action" onClick={() => {
                                     setWifiPasswordInputType(!wifiPasswordInputType)
@@ -647,19 +1225,22 @@ const SharedPasswordForm = (props) => {
                                         )}
                                 </Overlay>
                             </div>
-
-                            
                         </div>
                         <div className="form-group">
                             <label htmlFor="wifiNotes">Notes</label>
-                            <textarea className="form-control" id="wifiNotes" value={wifiNotes} onChange={(e) => setWifiNotes(e.target.value) } ></textarea>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{wifiNotes}</p>
+                            </div>
+                            <textarea className="form-control" id="wifiNotes" style={{display: isEditForm ? 'flex' : 'none'}} value={wifiNotes} onChange={(e) => setWifiNotes(e.target.value) } ></textarea>
                         </div>
                     </div>
                     <div id="creditAccount" style={{display: accountType === 'credit' ? 'block' : 'none'}}>
                         <div className="form-group">
                             <label htmlFor="cardNumber">Card Number</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cardNumber}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="cardNumber" placeholder="Enter card number" value={cardNumber} onChange={(e) => setCardNumber(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={cardNumberInput}>
                                     <CopyToClipboard text={cardNumber} onCopy={onCopyCardNumber}>
@@ -678,8 +1259,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="expireDate">Expiration Date</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{expireDate}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="expireDate" placeholder="Enter expiration date" value={expireDate} onChange={(e) => setExpireDate(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={cardDateInput}>
                                     <CopyToClipboard text={expireDate} onCopy={onCopyCardDate}>
@@ -698,8 +1281,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="cardCvv">CVV</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cardCvv}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="cardCvv" placeholder="Enter CVV" value={cardCvv} onChange={(e) => setCardCvv(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={cardCvvInput}>
                                     <CopyToClipboard text={cardCvv} onCopy={onCopyCardCvv}>
@@ -718,14 +1303,19 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="cardNotes">Notes</label>
-                            <textarea className="form-control" id="cardNotes" value={cardNotes} onChange={(e) => setCardNotes(e.target.value) } ></textarea>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cardNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="cardNotes" value={cardNotes} onChange={(e) => setCardNotes(e.target.value) } ></textarea>
                         </div>
                     </div>
                     <div id="cryptoAccount" style={{display: accountType === 'crypto' ? 'block' : 'none'}}>
                         <div className="form-group">
                             <label htmlFor="cryptUsername">Username</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cryptUsername}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="cryptUsername" placeholder="Enter username" value={cryptUsername} onChange={(e) => setCryptUsername(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={cryptUsernameInput}>
                                     <CopyToClipboard text={cryptUsername} onCopy={onCopyCryptUsername}>
@@ -744,8 +1334,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="cryptPassword">Password</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cryptPassword}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type={cryptPasswordInputType ? 'password' : 'text'} className="form-control" id="cryptPassword" placeholder="Enter password" value={cryptPassword} onChange={(e) => setCryptPassword(e.target.value) } />
                                 <div className="input-group-append input-group-action" onClick={() => {
                                     setCryptPasswordInputType(!cryptPasswordInputType)
@@ -775,8 +1367,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="cryptSeed">Seed</label>
-                            
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cryptSeed}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="cryptSeed" placeholder="Enter seed" value={cryptSeed} onChange={(e) => setCryptSeed(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={cryptSeedInput}>
                                     <CopyToClipboard text={cryptSeed} onCopy={onCopyCryptSeed}>
@@ -796,14 +1390,19 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="cryptNotes">Notes</label>
-                            <textarea className="form-control" id="cryptNotes" value={cryptNotes} onChange={(e) => setCryptNotes(e.target.value) } ></textarea>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{cryptNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="cryptNotes" value={cryptNotes} onChange={(e) => setCryptNotes(e.target.value) } ></textarea>
                         </div>
                     </div>
                     <div id="customAccount" style={{display: accountType === 'custom' ? 'block' : 'none'}}>
                         <div className="form-group">
                             <label htmlFor="customUrl">URL</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{customUrl}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type="text" className="form-control" id="customUrl" placeholder="Enter URL" value={customUrl} onChange={(e) => setCustomUrl(e.target.value) } />
                                 <div className="input-group-append input-group-action" onClick={() => {
                                     if(validator.isURL(customUrl)) {
@@ -829,8 +1428,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="customUsername">Username</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{customUrl}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                             <input type="text" className="form-control" id="customUsername" placeholder="Enter username" value={customUsername} onChange={(e) => setCustomUsername(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={customUsernameInput}>
                                     <CopyToClipboard text={customUsername} onCopy={onCopyCustomUsername}>
@@ -849,8 +1450,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="customPassword">Password</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{customPassword}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                                 <input type={customPasswordInputType ? 'password' : 'text'} className="form-control" id="customPassword" placeholder="Enter password" value={customPassword} onChange={(e) => setCustomPassword(e.target.value) } />
                                 <div className="input-group-append input-group-action" onClick={() => {
                                     setCustomPasswordInputType(!customPasswordInputType)
@@ -880,8 +1483,10 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="customEmail">Email</label>
-
-                            <div className="input-group mb-3">
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{customEmail}</p>
+                            </div>
+                            <div className="input-group mb-3" style={{display: isEditForm ? 'flex' : 'none'}}>
                             <input type="email" className="form-control" id="customEmail" placeholder="Enter email" value={customEmail} onChange={(e) => setCustomEmail(e.target.value) } />
                                 <div className="input-group-append input-group-action" ref={customEmailInput}>
                                     <CopyToClipboard text={customEmail} onCopy={onCopyCustomEmail}>
@@ -900,19 +1505,17 @@ const SharedPasswordForm = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="customNotes">Notes</label>
-                            <textarea className="form-control" id="customNotes" value={customNotes} onChange={(e) => setCustomNotes(e.target.value) } ></textarea>
+                            <div className="view" style={{display: isEditForm ? 'none' : 'flex'}}>
+                                <p>{customNotes}</p>
+                            </div>
+                            <textarea className="form-control" style={{display: isEditForm ? 'flex' : 'none'}} id="customNotes" value={customNotes} onChange={(e) => setCustomNotes(e.target.value) } ></textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </Modal.Body>
         <Modal.Footer>
-            {props.passwordType == 'edit' ? 
-            <button type="submit" disabled={passwordName === '' || saveButtonDisabled ? true : false } className="btn btn-primary" onClick={savePassword}>{saveButtonText}</button>
-            :
-            ""
-            }
-            
+            <button style={{display: isEditForm ? 'flex' : 'none'}} type="submit" disabled={passwordName === '' || saveButtonDisabled ? true : false } className="btn btn-primary" onClick={savePassword}>{saveButtonText}</button>
         </Modal.Footer>
       </Modal>
       </>

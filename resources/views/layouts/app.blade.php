@@ -24,6 +24,7 @@
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('/public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Styles -->
+    <link href="{{ asset('/public/css/waitMe.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/resources/css/app.css') }}" rel="stylesheet">
     <script>
         if (typeof(Storage) !== "undefined") {
@@ -63,6 +64,7 @@
     <script src="{{ asset('/public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('/public/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('/public/js/waitMe.min.js') }}"></script>
     <script src="{{ asset('/public/js/custom.js') }}"></script>
     
 </body>

@@ -76,11 +76,12 @@ const User = (props) => {
     }
     
     useEffect(() => {
+        dispatch(getalluser('user_list'))
         dispatch({ type: 'SET_CATEGORY_ID', payload: ''})
     }, [])
     return (
         <div className="content-wrapper">
-            <Breadcumb getcat={props.getcat} title="All users" id="" addButton="user" />
+            <Breadcumb getcat={props.getcat} title="All users" id="" addButton="user" pageType="user" />
             <section className="content">
                 <div className="container-fluid">
                   <div className="row">

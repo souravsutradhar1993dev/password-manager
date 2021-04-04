@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
+import ImportModal from './ImportModal'
 import SweetAlert from 'react-bootstrap-sweetalert';
-import {getmenucategories,getcategorychildren} from '../actions/action'
+import {getmenucategories,getcategorychildren, getalluser, getshared} from '../actions/action'
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
 import {
@@ -12,7 +13,11 @@ const Breadcumb = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [deleteAlert, setDeleteAlert] = useState(null)
+    const [isShowImportModal, setIsShowImportModal] = useState(false)
 
+    const getImportModal = () => {
+        setIsShowImportModal(!isShowImportModal)
+    }
     const currentCategoryId = useSelector((state) => {
         return state.category.category_id;
     })
@@ -71,10 +76,32 @@ const Breadcumb = (props) => {
           toastr.error('Some error occurs.Please try again.', '')
       }
   }
-  const onDeleteCancel = () => {
-      setDeleteAlert(null)
-  }
+    const onDeleteCancel = () => {
+        setDeleteAlert(null)
+    }
 
+    const changeSearchHandler = (searchValue) => {
+
+        switch(props.pageType) {
+            case 'category':
+                dispatch(getcategorychildren(currentCategoryId, searchValue))
+            break;
+            case 'shared':
+                dispatch(getshared(searchValue))
+            break;
+            case 'all_category':
+                dispatch(getcategorychildren('', searchValue))
+            break;
+            case 'user':
+                dispatch(getalluser('user_list', searchValue))
+            break;
+        }
+        
+    }
+
+    const userRole = useSelector((state) => {
+        return state.user.user.role;
+    })
     return (
         <div className="content-header">
         <div className="container-fluid">
@@ -99,8 +126,28 @@ const Breadcumb = (props) => {
                 <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
                     {
+                        props.pageType === 'category' || props.pageType === 'shared' || props.pageType === 'all_category' || props.pageType === 'user' ?
+                            <input type="search" className="form-control search_cat" onChange={(e) => changeSearchHandler(e.target.value)} placeholder="Search here..." />
+                          
+                        :
+                        ""
+                    }
+                    
+                    {
                         props.addButton === 'password' ? 
-                        <button type="button" className="btn btn-primary" onClick={() => props.getcat(currentCategoryId, 'password')}><i className="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New</button>
+                        <>
+                            {
+                                userRole === 'admin' || userRole === 'super-admin' ?
+                                <>
+                                    <button type="button" className="btn btn-primary" onClick={() => getImportModal() }><i className="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;Import</button>
+                                    <button type="button" className="btn btn-primary" onClick={() => props.getcat(currentCategoryId, 'export')}><i className="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;Export</button>
+                                </>
+                                :
+                                ""
+                            }
+                            
+                            <button type="button" className="btn btn-primary" onClick={() => props.getcat(currentCategoryId, 'password')}><i className="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New</button>
+                        </>
                         :
                         <button type="button" className="btn btn-primary" onClick={() => dispatch({type: "GET_SHOW_USER_MODAL", payload: true})}><i className="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New</button>
                     }
@@ -111,6 +158,7 @@ const Breadcumb = (props) => {
             </div>{/* /.row */}
         </div>{/* /.container-fluid */}
         {deleteAlert}
+        <ImportModal getImportModal={getImportModal} isShowImportModal={isShowImportModal} />
         </div>
     )
 }

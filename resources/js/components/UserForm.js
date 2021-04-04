@@ -94,7 +94,7 @@ const UserForm = (props) => {
                     setUserPassword('');
                     dispatch({ type: 'GET_SHOW_USER_MODAL', payload: false})
                     props.changeCatId(0)
-                    dispatch(getalluser())
+                    dispatch(getalluser('user_list'))
                     toastr.success(res2.message, '', {displayDuration:3000})
                 }else {
                     toastr.error(res2.message, '')

@@ -73,6 +73,7 @@ const SharedChildren = (props) => {
                     <div className="col-sm-6">
                         <ol className="breadcrumb float-sm-right">
                             <li className="breadcrumb-item">
+                              <input type="search" className="form-control search_cat" onChange={(e) => dispatch(getsharedchildren(id, e.target.value))} placeholder="Search here..." />
                                 <button type="button" className="btn btn-primary" onClick={() => props.getcat('', 'password')}><i className="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New</button>
                             </li>
                         </ol>

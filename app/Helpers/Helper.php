@@ -19,7 +19,7 @@ if (!function_exists('buildTree')) {
                     }
                     if($type == 'menu') {
                         unset($element['parent_id']);
-                        unset($element['value']);
+                        //unset($element['value']);
                     }
                     $element['children'] = $children;
                 }
@@ -34,7 +34,7 @@ if (!function_exists('buildTree')) {
                 }
                 if($type == 'menu') {
                     unset($element['parent_id']);
-                    unset($element['value']);  
+                    //unset($element['value']);  
                 }
                 $branch[] = $element;
             }
@@ -67,5 +67,30 @@ if (!function_exists('decrypt')) {
 
         return openssl_decrypt ($string, $ciphering,  
         $encryption_key, $options, $iv);
+    }
+}
+
+if (!function_exists('csvToArray')) {
+    function csvToArray($filename = '', $delimiter = ',')
+    {
+        if (!file_exists($filename) || !is_readable($filename))
+            return false;
+
+        $header = null;
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== false)
+        {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+            {
+                if (!$header)
+                    $header = $row;
+                else
+                    //$data[] = array_combine($header, $row);
+                    $data[] = $row;
+            }
+            fclose($handle);
+        }
+
+        return $data;
     }
 }

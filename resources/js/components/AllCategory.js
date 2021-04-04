@@ -22,7 +22,7 @@ function AllCategry(props) {
     }, [])
     return (
         <div className="content-wrapper">
-            <Breadcumb getcat={props.getcat} title="All Accounts" id="" addButton="password" />
+            <Breadcumb getcat={props.getcat} title="All Accounts" id="" addButton="password" pageType="all_category" />
             <section className="content">
                 <div className="container-fluid">
                   <div className="row">

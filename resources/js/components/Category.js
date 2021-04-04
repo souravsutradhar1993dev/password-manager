@@ -24,7 +24,6 @@ function Category(props) {
     passwordIcons['cpanel'] = 'cpanel' 
     passwordIcons['gsuite'] = 'google-plus-g' 
     passwordIcons['social'] = 'globe' 
-
     passwordIcons['web'] = 'globe' 
     passwordIcons['email'] = 'envelope'
     passwordIcons['wifi'] = 'wifi'
@@ -38,7 +37,7 @@ function Category(props) {
     }, [id])
     return (
         <div className="content-wrapper">
-            <Breadcumb getcat={props.getcat} title={categoryData.current_category_name !== undefined ? categoryData.current_category_name : ""} id={categoryData.current_category_name !== undefined ?  categoryData.current_category_id : ""} addButton="password" />
+            <Breadcumb getcat={props.getcat} title={categoryData.current_category_name !== undefined ? categoryData.current_category_name : ""} id={categoryData.current_category_name !== undefined ?  categoryData.current_category_id : ""} addButton="password" pageType="category" />
             <section className="content">
                 <div className="container-fluid">
                   <div className="row">

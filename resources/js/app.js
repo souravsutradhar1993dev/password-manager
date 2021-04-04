@@ -23,6 +23,7 @@ import showPasswordModalReducer from './reducers/showPasswordModalReducer';
 import showCategoryModalReducer from './reducers/showCategoryModalReducer';
 import showUserModalReducer from './reducers/showUserModalReducer';
 import showProfileModalReducer from './reducers/showProfileModalReducer';
+import showExportModalReducer from './reducers/showExportModalReducer';
 import allUserReducer from './reducers/allUserReducer';
 import editPasswordReducer from './reducers/editPasswordReducer';
 import editCategoryReducer from './reducers/editCategoryReducer';
@@ -50,6 +51,7 @@ var rootReducer = combineReducers({
     sharedPassword: sharedPasswordReducer,
     sharedCategory: sharedCategoryReducer,
     sharedChildren: sharedChildrenReducer,
+    showExportModal: showExportModalReducer,
 })
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

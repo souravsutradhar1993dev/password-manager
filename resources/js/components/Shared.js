@@ -12,8 +12,6 @@ const Shared = (props) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [categories, setCategory] = useState([])
-    const [passwords, setPassword] = useState([])
     const [isShowPasswordModal, setIsShowPasswordModal] = useState(false)
     const[passwordId, setPasswordId] = useState(0)
     const [passwordType, setPasswordType] = useState('view')
@@ -40,7 +38,7 @@ const Shared = (props) => {
     }, [])
     return (
         <div className="content-wrapper">
-            <Breadcumb getcat={props.getcat} title="Shared with me" id="" addButton="password" />
+            <Breadcumb getcat={props.getcat} title="Shared with me" id="" addButton="password" pageType="shared" />
             <section className="content">
                 <div className="container-fluid">
                   <div className="row">

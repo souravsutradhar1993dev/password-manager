@@ -73,3 +73,12 @@
     margin-top: 10px;
     cursor: pointer;
 }
+.breadcrumb-item button {
+    margin-left: 10px;
+}
+.import-instruction {
+    margin-top: 15px;
+}
+.breadcrumb-item button{
+    width: 100%;
+}
