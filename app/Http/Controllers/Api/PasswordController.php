@@ -463,9 +463,8 @@ class PasswordController extends Controller
             foreach ($passwords as $password) {
                 $category = Category::find($password->category_id);
                 if($category) {
-                    
                     $row['Account Name']  = $category->title;
-                    $row['Account Type']    = array_search($password->account_type, $accountTypes);
+                    $row['Account Type']    = isset($accountTypes[$password->account_type]) ? $accountTypes[$password->account_type] : '';
                     $row['Name']    = $password->name;
                     $row['URL']  = '';
                     $row['Email']  = '';

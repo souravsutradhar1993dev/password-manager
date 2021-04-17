@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import Breadcumb from './Breadcumb';
 import UserForm from './UserForm';
 import SweetAlert from 'react-bootstrap-sweetalert';
-import {getalluser} from '../actions/action'
+import {getuserlist, getalluser} from '../actions/action'
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
 
@@ -12,7 +12,7 @@ const User = (props) => {
     const [deleteAlert, setDeleteAlert] = useState(null)
 
     const allUsers = useSelector((state) => {
-        return state.allUser.user;
+        return state.userList.user;
     })
     const dispatch = useDispatch(); 
 
@@ -60,6 +60,7 @@ const User = (props) => {
         setDeleteAlert(null)
         if(resStatus == 200) {
             if(res2.success) {
+                dispatch(getuserlist())
                 dispatch(getalluser())
                 toastr.success(res2.message, '', {displayDuration:3000})
             }else {
@@ -76,7 +77,8 @@ const User = (props) => {
     }
     
     useEffect(() => {
-        dispatch(getalluser('user_list'))
+        dispatch(getuserlist())
+        dispatch(getalluser())
         dispatch({ type: 'SET_CATEGORY_ID', payload: ''})
     }, [])
     return (

@@ -50,6 +50,33 @@ export const getalluser = (type = 'form', search = '') => {
     }
 }
 
+export const getuserlist = (search = '') => {
+    return async (dispatch) => {
+        const apiToken = await localStorage.getItem("authToken");
+        const baseUrl = await localStorage.getItem("baseUrl");
+        let url = baseUrl + '/api/user?type=user_list'
+        if(search !== '') {
+            url = url + '&s=' + search
+        }
+
+        const data = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + apiToken,
+            },
+        })
+        const resStatus = await data.status
+        if(resStatus == 401) {
+            window.location.href = baseUrl + '/login'
+        }
+        const res2 = await data.json() 
+      
+        dispatch({ type: 'GET_USER_LIST', payload: res2})
+      
+    }
+}
+
 export const getmenucategories = () => {
     return async (dispatch) => {
         const apiToken = await localStorage.getItem("authToken");

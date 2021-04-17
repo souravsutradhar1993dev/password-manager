@@ -4,7 +4,7 @@ import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
 import { Modal, Overlay, Tooltip } from "react-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import {getalluser} from '../actions/action'
+import {getalluser, getuserlist} from '../actions/action'
 import validator from 'validator'
 
 const UserForm = (props) => {
@@ -94,7 +94,7 @@ const UserForm = (props) => {
                     setUserPassword('');
                     dispatch({ type: 'GET_SHOW_USER_MODAL', payload: false})
                     props.changeCatId(0)
-                    dispatch(getalluser('user_list'))
+                    dispatch(getuserlist())
                     toastr.success(res2.message, '', {displayDuration:3000})
                 }else {
                     toastr.error(res2.message, '')

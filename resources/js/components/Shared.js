@@ -54,7 +54,7 @@ const Shared = (props) => {
                         </div>
                       ))
                     }
-                    {
+                    {/* {
                       categoryJson.passwords.map((password, index) => (
                         <div className="col-md-3 col-sm-6 col-12" key={index} onClick={() => {
                             setIsShowPasswordModal(true)
@@ -69,7 +69,7 @@ const Shared = (props) => {
                           </div>
                         </div>
                       ))
-                    }
+                    } */}
                   </div>
                 </div>
             </section>

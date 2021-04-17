@@ -32,6 +32,7 @@ import sharedReducer from './reducers/sharedReducer';
 import sharedPasswordReducer from './reducers/sharedPasswordReducer';
 import sharedCategoryReducer from './reducers/sharedCategoryReducer';
 import sharedChildrenReducer from './reducers/sharedChildrenReducer';
+import userListReducer from './reducers/userListReducer';
 import {BrowserRouter as Router} from "react-router-dom";
 import history from './history'
 
@@ -52,6 +53,7 @@ var rootReducer = combineReducers({
     sharedCategory: sharedCategoryReducer,
     sharedChildren: sharedChildrenReducer,
     showExportModal: showExportModalReducer,
+    userList: userListReducer,
 })
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

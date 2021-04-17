@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import ImportModal from './ImportModal'
 import SweetAlert from 'react-bootstrap-sweetalert';
-import {getmenucategories,getcategorychildren, getalluser, getshared} from '../actions/action'
+import {getmenucategories,getcategorychildren, getuserlist, getshared} from '../actions/action'
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
 import {
@@ -93,7 +93,7 @@ const Breadcumb = (props) => {
                 dispatch(getcategorychildren('', searchValue))
             break;
             case 'user':
-                dispatch(getalluser('user_list', searchValue))
+                dispatch(getuserlist(searchValue))
             break;
         }
         
